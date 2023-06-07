@@ -3,8 +3,9 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/azam-sh/books/initializers"
-	"github.com/azam-sh/books/models"
+	"books/initializers"
+	"books/models"
+
 	"github.com/gin-gonic/gin"
 )
 

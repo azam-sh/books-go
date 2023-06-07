@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/azam-sh/books/initializers"
-	"github.com/azam-sh/books/routes"
+	"books/initializers"
+	"books/routes"
 )
 
 func init() {

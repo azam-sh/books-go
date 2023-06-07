@@ -1,4 +1,4 @@
-module github.com/azam-sh/books
+module books
 
 go 1.20
 

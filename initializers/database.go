@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/azam-sh/books/models"
+	"books/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

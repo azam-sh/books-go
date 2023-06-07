@@ -3,9 +3,11 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/azam-sh/books/initializers"
-	"github.com/azam-sh/books/models"
-	"github.com/azam-sh/books/token"
+	"books/initializers"
+	"books/models"
+
+	"books/token"
+
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )

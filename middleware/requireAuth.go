@@ -3,7 +3,8 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/azam-sh/books/token"
+	"books/token"
+
 	"github.com/gin-gonic/gin"
 )
 

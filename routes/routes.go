@@ -4,8 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/azam-sh/books/controllers"
-	"github.com/azam-sh/books/middleware"
+	"books/controllers"
+	"books/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 

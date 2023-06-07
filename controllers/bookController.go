@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/azam-sh/books/initializers"
-	"github.com/azam-sh/books/models"
+	"books/initializers"
+	"books/models"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
