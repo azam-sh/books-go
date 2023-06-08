@@ -13,13 +13,9 @@ import (
 func StartRoutes() {
 	r := gin.Default()
 
-	public := r.Group("/v1")
+	r.GET("/ping", ping)
 
-	public.GET("/ping", ping)
-	public.POST("/signup", controllers.Signup)
-	public.POST("/login", controllers.Login)
-
-	private := r.Group("/v2")
+	private := r.Group("/v1")
 	private.Use(middleware.JWTAuthMiddleware())
 
 	private.GET("/users", controllers.GetAllUsers)

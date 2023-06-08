@@ -4,22 +4,10 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
-
-func GenerateToken(userId uint) (string, error) {
-
-	claims := jwt.MapClaims{}
-	claims["user_id"] = userId
-	claims["exp"] = time.Now().Add(time.Minute * 25).Unix()
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	return token.SignedString([]byte(os.Getenv("SECRET")))
-}
 
 func TokenValid(c *gin.Context) error {
 	tokenString := ExtractToken(c)
