@@ -16,17 +16,17 @@ func StartRoutes() {
 	r.GET("/ping", ping)
 
 	private := r.Group("/v1")
-	private.Use(middleware.JWTAuthMiddleware())
+	private.Use(middleware.RequireJWT())
 
-	private.GET("/users", controllers.GetAllUsers)
-	private.GET("/users/:id", controllers.GetUserByID)
-	private.PUT("/users/:id", controllers.UpdateUser)
+	private.GET("/users", middleware.CheckRole(1), controllers.GetAllUsers)
+	private.GET("/users/:id", middleware.CheckRole(2), controllers.GetUserByID)
+	private.PUT("/users/:id", middleware.CheckRole(1), controllers.UpdateUser)
 
-	private.GET("/books", controllers.GetAllBooks)
-	private.GET("/books/:id", controllers.GetBookByID)
-	private.POST("/books", controllers.AddBook)
-	private.DELETE("/books/:id", controllers.DeleteBook)
-	private.PUT("/books/:id", controllers.UpdateBook)
+	private.GET("/books", middleware.CheckRole(2), controllers.GetAllBooks)
+	private.GET("/books/:id", middleware.CheckRole(2), controllers.GetBookByID)
+	private.POST("/books", middleware.CheckRole(1), controllers.AddBook)
+	private.DELETE("/books/:id", middleware.CheckRole(1), controllers.DeleteBook)
+	private.PUT("/books/:id", middleware.CheckRole(1), controllers.UpdateBook)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "page not found"})

@@ -3,6 +3,7 @@ package token
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -33,4 +34,27 @@ func ExtractToken(c *gin.Context) string {
 		return strings.Split(bearerToken, " ")[1]
 	}
 	return ""
+}
+
+func ExtractRoleID(c *gin.Context) (uint, error) {
+
+	tokenString := ExtractToken(c)
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(os.Getenv("SECRET")), nil
+	})
+	if err != nil {
+		return 0, err
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if ok && token.Valid {
+		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["role_id"]), 10, 32)
+		if err != nil {
+			return 0, err
+		}
+		return uint(uid), nil
+	}
+	return 0, nil
 }

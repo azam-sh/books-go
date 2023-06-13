@@ -58,7 +58,6 @@ func UpdateUser(c *gin.Context) {
 
 	user.FullName = body.FullName
 	user.RoleID = body.RoleID
-	user.AccessID = body.AccessID
 	user.Phone = body.Phone
 	user.Active = body.Active
 

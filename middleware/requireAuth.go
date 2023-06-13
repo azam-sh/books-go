@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func JWTAuthMiddleware() gin.HandlerFunc {
+func RequireJWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err := token.TokenValid(c)
 		if err != nil {

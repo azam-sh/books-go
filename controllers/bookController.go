@@ -21,7 +21,7 @@ func AddBook(c *gin.Context) {
 		})
 		return
 	}
-	book := models.Book{Name: body.Name, AccessID: body.AccessID, CategoryID: body.CategoryID}
+	book := models.Book{Name: body.Name, CategoryID: body.CategoryID}
 	result := initializers.DB.Create(&book)
 
 	if result.Error != nil {
@@ -41,7 +41,7 @@ func GetAllBooks(c *gin.Context) {
 	var books []models.Book
 
 	if s := c.Query("search"); s != "" {
-		if err := initializers.DB.Joins("Access").Joins("Category").Where("books.name LIKE ?", "%"+s+"%").Scopes(Paginate(c.Request)).Find(&books).Error; err != nil {
+		if err := initializers.DB.Joins("Category").Where("books.name LIKE ?", "%"+s+"%").Scopes(Paginate(c.Request)).Find(&books).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "can't get books",
 			})
@@ -52,7 +52,7 @@ func GetAllBooks(c *gin.Context) {
 		})
 		return
 	} else {
-		if err := initializers.DB.Joins("Access").Joins("Category").Scopes(Paginate(c.Request)).Find(&books).Error; err != nil {
+		if err := initializers.DB.Joins("Category").Scopes(Paginate(c.Request)).Find(&books).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "can't get books",
 			})
@@ -70,7 +70,7 @@ func GetBookByID(c *gin.Context) {
 
 	var book models.Book
 
-	if result := initializers.DB.Joins("Access").Joins("Category").First(&book, id); result.Error != nil {
+	if result := initializers.DB.Joins("Category").First(&book, id); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"error": "book not found",
 		})
@@ -104,7 +104,6 @@ func UpdateBook(c *gin.Context) {
 	}
 
 	book.Name = body.Name
-	book.AccessID = body.AccessID
 
 	initializers.DB.Save(&book)
 

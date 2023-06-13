@@ -30,15 +30,6 @@ func Seed() {
 		DB.Create(&r)
 	}
 
-	accesses := []models.Access{
-		{ID: 1, Name: "free"},
-		{ID: 2, Name: "silver"},
-		{ID: 3, Name: "gold"},
-	}
-	for _, a := range accesses {
-		DB.Create(&a)
-	}
-
 	categories := []models.Category{
 		{ID: 1, Name: "romance"},
 		{ID: 2, Name: "mysteries"},
@@ -52,7 +43,7 @@ func Seed() {
 }
 
 func SyncDatabase() {
-	err := DB.AutoMigrate(&models.Role{}, &models.Access{}, &models.User{}, &models.Book{})
+	err := DB.AutoMigrate(&models.Role{}, &models.User{}, &models.Book{})
 	if err != nil {
 		log.Fatal("migration failed")
 	}
