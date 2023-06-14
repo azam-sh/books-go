@@ -8,8 +8,8 @@ import (
 
 type User struct {
 	ID        int64          `json:"id" gorm:"column:id;primary_key;autoIncrement"`
-	FullName  string         `json:"fullName" gorm:"column:full_name"`
-	RoleID    int64          `json:"roleId" gorm:"column:role_id"`
+	FullName  string         `json:"full_name" gorm:"column:full_name"`
+	RoleID    int64          `json:"role_id" gorm:"column:role_id"`
 	Login     string         `json:"login" gorm:"column:login;unique"`
 	Password  string         `json:"password" gorm:"column:password"`
 	Phone     string         `json:"phone" gorm:"column:phone"`
